@@ -5,4 +5,31 @@
   height: calc(100vh - 80px);
   display: flex;
   flex-direction: row;
+  overflow-x: hidden;
+  position: relative;
+  .button {
+    background-color: #8a8a8a;
+    transition: all .2 ease;
+    outline: none;
+    border:2px solid $background;
+  }
+  .button:hover {
+    background-color: $theme-color;
+    border:4px solid $background-header;
+
+  }
+  .back{
+    z-index: 999;
+    position: fixed;
+    left: 20px;
+    top: 50%;
+  }
+  .forward{
+    z-index: 999;
+    position: fixed;
+    right: 20px;
+    top: 50%;
+  }
+
+  
 }

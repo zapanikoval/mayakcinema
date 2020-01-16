@@ -1,4 +1,5 @@
 @import "./Theme.scss";
+$menu-visible: false;
 
 .header {
   background-color: $background-header;
@@ -8,6 +9,17 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 6px solid $theme-color;
+  position: relative;
+
+  .back-blur{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: -9999;
+
+  }
 
   .contorls {
     height: 100%;
@@ -25,6 +37,33 @@
     justify-content: flex-end;
     .logo-img {
       height: 100%;
+    }
+  }
+  .menu {
+    position: absolute;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 0;
+    background-color: $background-header;
+    border-right: 5px solid $theme-color;
+    transition: all 0.2s ease;
+   
+    
+    .close-button {
+      position: fixed;
+      left: 10px;
+      top: 10px;
+
+      .close-fab {
+        background-color: hsla(0, 0%, 55%, 0.185);
+        transition: all 0.2 ease;
+        outline: none;
+      }
+      .close-fab:hover {
+        background-color: $theme-color;
+      }
     }
   }
 }
