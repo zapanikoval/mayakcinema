@@ -1,0 +1,30 @@
+@import "./Theme.scss";
+
+.header {
+  background-color: $background-header;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 6px solid $theme-color;
+
+  .contorls {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .logo {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    .logo-img {
+      height: 100%;
+    }
+  }
+}

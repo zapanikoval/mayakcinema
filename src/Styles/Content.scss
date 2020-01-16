@@ -1,0 +1,8 @@
+@import "./Theme.scss";
+
+.content {
+  background-color: $background;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: row;
+}
