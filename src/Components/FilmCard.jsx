@@ -3,6 +3,7 @@ import "../Styles/FilmCard.scss";
 import Fab from "@material-ui/core/Fab";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import { NavLink } from "react-router-dom";
 
 class FilmCard extends React.Component {
   constructor(props) {
@@ -37,7 +38,9 @@ class FilmCard extends React.Component {
           {this.state.focus && (
             <div className="controls">
               <Fab className="control-button">
-                <InfoOutlinedIcon fontSize="large" />
+                <NavLink to={`/film/${3}`} className="a-link">
+                  <InfoOutlinedIcon fontSize="large" />
+                </NavLink>
               </Fab>
               <Fab className="control-button">
                 <PlayArrowIcon fontSize="large" />

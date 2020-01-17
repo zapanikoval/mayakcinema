@@ -6,6 +6,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import "../Styles/Header.scss";
 import logoTheme from "../Images/logo-theme.png";
 
+import { NavLink } from "react-router-dom";
+
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -61,6 +63,20 @@ export default class Header extends React.Component {
                 <CloseIcon fontSize="small" />
               </Fab>
             </div>
+          )}
+          {this.state.showMenuContent && (
+            <nav className="nav flex-column nav-menu">
+              <img src={logoTheme} alt="Кинотеатр имени Маяковского" />
+              <NavLink activeClassName="active" className="nav-link" to="/release" onClick={this.toggleMenu}>
+                Сейчас в кино
+              </NavLink>
+              <NavLink activeClassName="active" className="nav-link" to="/soon" onClick={this.toggleMenu}>
+                Скоро в прокате
+              </NavLink>
+              <NavLink activeClassName="active" className="nav-link" to="/cinema" onClick={this.toggleMenu}>
+                Кинотеатр
+              </NavLink>
+            </nav>
           )}
         </div>
         <div className="contorls">
