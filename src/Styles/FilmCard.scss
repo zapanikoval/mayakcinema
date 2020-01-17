@@ -11,13 +11,12 @@
   width: 300px;
   box-shadow: 0 -100px 50px rgba(0, 0, 0, 0.856) inset;
   position: relative;
-  z-index: 0;
+  z-index: 1001;
 
   .blur {
     height: 100%;
     width: 300px;
-    z-index: 1;
-    transition: all 0.2s ease;
+    z-index: 1002;
     position: relative;
   }
   .blur:hover {
@@ -26,7 +25,7 @@
   }
 
   .title {
-    z-index: 2;
+    z-index: 1003;
     position: absolute;
     bottom: 50px;
     margin: 0 30px 0 30px;
@@ -37,7 +36,7 @@
   }
 
   .controls {
-    z-index: 3;
+    z-index: 1003;
     position: absolute;
     top: 30px;
     margin: 0 30px 0 30px;
@@ -48,7 +47,7 @@
     justify-content: space-between;
     .control-button {
       background-color: #8a8a8a;
-      transition: all .2 ease;
+      transition: all 0.2 ease;
       outline: none;
     }
     .control-button:hover {

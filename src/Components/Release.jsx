@@ -25,7 +25,7 @@ class Release extends React.Component {
         this.refs.content.scrollBy(4, 0);
         currentWidth += 4;
       } else clearInterval(interval);
-    }, 0.3);
+    }, 0.00001 );
     if (this.refs.content.scrollLeft + 308 === 1540) {
       this.setState({
         rightScrollVisible: false,
@@ -46,7 +46,7 @@ class Release extends React.Component {
         this.refs.content.scrollBy(-4, 0);
         currentWidth -= 4;
       } else clearInterval(interval);
-    }, 0.3);
+    }, 0.00001);
     if (this.refs.content.scrollLeft - 308 === 0) {
       this.setState({
         rightScrollVisible: true,

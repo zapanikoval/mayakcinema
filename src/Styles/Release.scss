@@ -7,6 +7,7 @@
   flex-direction: row;
   overflow-x: hidden;
   position: relative;
+  z-index: 1000;
   .button {
     background-color: #8a8a8a;
     transition: all .2 ease;
@@ -19,13 +20,13 @@
 
   }
   .back{
-    z-index: 999;
+    z-index: 1004;
     position: fixed;
     left: 20px;
     top: 50%;
   }
   .forward{
-    z-index: 999;
+    z-index: 1004;
     position: fixed;
     right: 20px;
     top: 50%;

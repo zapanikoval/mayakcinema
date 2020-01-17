@@ -48,8 +48,8 @@ export default class Header extends React.Component {
           className="back-blur"
           style={
             this.state.menuActive
-              ? { backgroundColor: "hsla(0, 0%, 0%, 0.75)", zIndex: 9998 }
-              : { backgroundColor: "hsla(0, 0%, 0%, 0)", zIndex: -9999 }
+              ? { height: "100vh", width:"100vw", zIndex: 2001 }
+              : {height: "0", width: "0", zIndex: 0 }
           }
           onClick={this.toggleMenu}
         ></div>
