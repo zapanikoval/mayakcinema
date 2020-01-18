@@ -29,7 +29,10 @@ class FilmCard extends React.Component {
 
   render() {
     return (
-      <div className="film-card">
+      <div
+        className="film-card"
+        style={{ backgroundImage: `url(${this.props.smallPoster})` }}
+      >
         <div
           className="blur"
           onMouseEnter={this.handleEnter}
@@ -38,7 +41,7 @@ class FilmCard extends React.Component {
           {this.state.focus && (
             <div className="controls">
               <Fab className="control-button">
-                <NavLink to={`/film/${3}`} className="a-link">
+                <NavLink to={`/film/${this.props.id}`} className="a-link">
                   <InfoOutlinedIcon fontSize="large" />
                 </NavLink>
               </Fab>
@@ -47,7 +50,11 @@ class FilmCard extends React.Component {
               </Fab>
             </div>
           )}
-          <h3 className="title">Шпионы под прикрытием</h3>
+
+          <h3 className="title"> {this.props.name}</h3>
+          {this.props.type === "soon" && this.state.focus && (
+            <h2 className="title">{this.props.releaseDate}</h2>
+          )}
         </div>
       </div>
     );

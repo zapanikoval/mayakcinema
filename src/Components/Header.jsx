@@ -41,6 +41,14 @@ export default class Header extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.state.menuActive === true) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }
+
   render() {
     return (
       <header className="header">
@@ -48,8 +56,8 @@ export default class Header extends React.Component {
           className="back-blur"
           style={
             this.state.menuActive
-              ? { height: "100vh", width:"100vw", zIndex: 2001 }
-              : {height: "0", width: "0", zIndex: 0 }
+              ? { height: "100vh", width: "100vw", zIndex: 2001 }
+              : { height: "0", width: "0", zIndex: 0 }
           }
           onClick={this.toggleMenu}
         ></div>
@@ -67,13 +75,28 @@ export default class Header extends React.Component {
           {this.state.showMenuContent && (
             <nav className="nav flex-column nav-menu">
               <img src={logoTheme} alt="Кинотеатр имени Маяковского" />
-              <NavLink activeClassName="active" className="nav-link" to="/release" onClick={this.toggleMenu}>
+              <NavLink
+                activeClassName="active"
+                className="nav-link"
+                to="/release"
+                onClick={this.toggleMenu}
+              >
                 Сейчас в кино
               </NavLink>
-              <NavLink activeClassName="active" className="nav-link" to="/soon" onClick={this.toggleMenu}>
+              <NavLink
+                activeClassName="active"
+                className="nav-link"
+                to="/soon"
+                onClick={this.toggleMenu}
+              >
                 Скоро в прокате
               </NavLink>
-              <NavLink activeClassName="active" className="nav-link" to="/cinema" onClick={this.toggleMenu}>
+              <NavLink
+                activeClassName="active"
+                className="nav-link"
+                to="/cinema"
+                onClick={this.toggleMenu}
+              >
                 Кинотеатр
               </NavLink>
             </nav>

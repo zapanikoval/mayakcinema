@@ -3,6 +3,7 @@ import "./App.scss";
 import Header from "./Components/Header";
 import Release from "./Components/Release";
 import FilmInfo from "./Components/FilmInfo";
+import Soon from "./Components/Soon";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
           <Release />
         </Route>
         <Route path="/soon">
-          <Release />
+          <Soon />
         </Route>
         <Route path="/cinema">
           <Release />

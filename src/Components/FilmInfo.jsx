@@ -1,72 +1,90 @@
 import React from "react";
 import Fab from "@material-ui/core/Fab";
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+
+import films from "./films";
 
 import "../Styles/FilmInfo.scss";
 
 class FilmInfo extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.props.history.goBack();
   }
 
   render() {
+    const film = films.find(film => film.id === this.props.match.params.filmId);
     return (
       <div className="body-info">
         <div className="background-image"></div>
         <div className="background-blur"></div>
         <div className="container-info">
-          <Fab size="small" className="btn-back">
+          <Fab size="small" className="btn-back" onClick={this.handleClick}>
             <KeyboardBackspaceIcon fontSize="small" />
           </Fab>
-          <img
-            className="film-poster"
-            src="https://moemisto.ua/img/cache/event_huge/event/0004/60/83d92dca8906c193ab053c307e1f84f0b2e0445a.jpeg?hash=2019-12-23-00-01-45"
-          />
-          <h1>Шпион под прикрытием</h1>
+
+          <img className="film-poster" src={film.fullPoster} />
+          <h1>{film.name}</h1>
           <div className="film-info">
             <div className="info">
+              {film.yearLimit && (
+                <p>
+                  <span>Возраст:</span> {film.yearLimit}
+                </p>
+              )}
+
               <p>
-                <span>Возраст:</span> 0+
+                <span>Оригинальное название:</span> {film.originalName}
               </p>
               <p>
-                <span>Оригинальное название:</span> Spies in Disguise
+                <span>Режисер:</span> {film.producer}
+              </p>
+              {film.type === "soon" ? (
+                <p>
+                  <span>Релиз: </span>
+                  {film.releaseDate}
+                </p>
+              ) : (
+                <p>
+                  <span>Период проката:</span> {film.releaseTime}
+                </p>
+              )}
+
+              {film.rate && (
+                <p>
+                  <span>Рейтинг Imdb:</span> {film.rate}
+                </p>
+              )}
+              <p>
+                <span>Жанр:</span> {film.style}
+              </p>
+              {film.type !== "soon" && (
+                <p>
+                  <span>Длительность:</span> {film.time}
+                </p>
+              )}
+
+              <p>
+                <span>Студия:</span> {film.studio}
               </p>
               <p>
-                <span>Режисер:</span> Ник Бруно, Трой Квон
-              </p>
-              <p>
-                <span>Период проката:</span> 25.12.2019 - 22.01.2020
-              </p>
-              <p>
-                <span>Рейтинг Imdb:</span> 6.8
-              </p>
-              <p>
-                <span>Жанр:</span> Анимация, Приключения, Мультфильм, Комедия
-              </p>
-              <p>
-                <span>Длительность:</span> 1:42
-              </p>
-              <p>
-                <span>Студия:</span> 20th Century Fox
-              </p>
-              <p>
-                <span>В главных ролях:</span> Том Холланд, Уилл Смит
+                <span>В главных ролях:</span> {film.mainRoles}
               </p>
             </div>
-            <div className="description">
-              Ленс Стерлинг - самый крутой шпион в мире. Дерзкий, обаятельный, с
-              супер возможностями. Его дело - спасать мир. И никто не сделает
-              этого лучше. Почти полной противоположностью является Уолтер.
-              Уолтер имеет светлую голову, но не очень общительным. Впрочем,
-              отсутствие коммуникабельности он компенсирует интеллектом и
-              изобретательностью. Уолтер - научный гений, изобретает различные
-              гаджеты, которые Ленс использует в своих миссиях. Однако, когда
-              события делают неожиданный поворот, Уолтер и Ленс вдруг вынуждены
-              полагаться друг на друга в совершенно новый способ. И, если эта
-              странная парочка не научится работать в команде, весь мир окажется
-              под смертельной угрозой.
-            </div>
+            <div className="description">{film.description}</div>
           </div>
+          <h4>Трейлер: </h4>
+          <iframe
+            className="youtube-player"
+            src={`https://www.youtube.com/embed/${film.link}`}
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
         </div>
       </div>
     );

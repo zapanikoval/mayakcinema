@@ -7,7 +7,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 import films from "./films";
 
-class Release extends React.Component {
+class Soon extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -77,9 +77,11 @@ class Release extends React.Component {
         )}
         {films.map(
           film =>
-            film.type === "inRelease" && (
+            film.type === "soon" && (
               <FilmCard
                 smallPoster={film.smallPoster}
+                releaseDate={film.releaseDate}
+                type="soon"
                 name={film.name}
                 id={film.id}
                 key={film.id}
@@ -98,4 +100,4 @@ class Release extends React.Component {
   }
 }
 
-export default Release;
+export default Soon;
