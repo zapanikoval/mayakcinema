@@ -79,6 +79,7 @@ class Soon extends React.Component {
           film =>
             film.type === "soon" && (
               <FilmCard
+                trailerLink={film.link}
                 smallPoster={film.smallPoster}
                 releaseDate={film.releaseDate}
                 type="soon"

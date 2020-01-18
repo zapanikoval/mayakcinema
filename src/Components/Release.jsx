@@ -79,6 +79,7 @@ class Release extends React.Component {
           film =>
             film.type === "inRelease" && (
               <FilmCard
+              trailerLink={film.link}
                 smallPoster={film.smallPoster}
                 name={film.name}
                 id={film.id}

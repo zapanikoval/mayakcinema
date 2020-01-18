@@ -46,7 +46,12 @@ class FilmCard extends React.Component {
                 </NavLink>
               </Fab>
               <Fab className="control-button">
-                <PlayArrowIcon fontSize="large" />
+                <NavLink
+                  to={`./trailer/${this.props.trailerLink}`}
+                  className="a-link"
+                >
+                  <PlayArrowIcon fontSize="large" />
+                </NavLink>
               </Fab>
             </div>
           )}
