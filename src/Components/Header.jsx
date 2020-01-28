@@ -63,7 +63,7 @@ export default class Header extends React.Component {
         ></div>
         <div
           className="menu"
-          style={this.state.menuActive ? { width: 308 } : { width: 0 }}
+          style={this.state.menuActive ? { marginLeft: "0" } : { marginLeft: "-320px" }}
         >
           {this.state.showMenuContent && (
             <div className="close-button">
@@ -112,7 +112,7 @@ export default class Header extends React.Component {
           <h1>Кинотеатр имени Маяковского</h1>
         </div>
         <div className="logo">
-          <img src={logoTheme} className="logo-img"></img>
+          <img src={logoTheme} alt="logo" className="logo-img"></img>
         </div>
       </header>
     );

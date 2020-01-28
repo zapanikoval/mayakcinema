@@ -50,9 +50,13 @@
   }
   .carousel {
     box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.75);
+    height: 500px;
+    .carousel-inner {
+      height: 500px;
+    }
 
     img {
-      height: calc(100vh - 220px);
+      height: 500px;
     }
     .carousel-caption {
       background-color: #ffffff7a;
@@ -63,6 +67,67 @@
       font-weight: 900;
       h2 {
         font-weight: 800;
+      }
+    }
+  }
+}
+
+@media (max-width: 1025px) and (min-width: 769px) {
+  .cinema-page {
+    .container-info {
+      width: calc(100vw - 10%);
+      box-shadow: 0px -1px 26px 26px rgba(0, 0, 0, 0.651);
+      height: auto;
+    }
+  }
+}
+@media (max-width: 768px) and (min-width: 425px) {
+  .cinema-page {
+    .container-info {
+      width: 100vw;
+      font-size: 15px;
+      height: auto;
+      h2 {
+        font-size: 1.5rem;
+      }
+      h5 {
+        font-size: 1rem;
+        text-align: center;
+      }
+      .carousel {
+        height: 20%;
+        .carousel-inner {
+          height: 20%;
+        }
+        img {
+          height: 20%;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 424px) and (min-width: 320px) {
+  .cinema-page {
+    .container-info {
+      width: 100vw;
+      font-size: 13px;
+      height: auto;
+      h2 {
+        font-size: 1.3rem;
+        text-align: center;
+      }
+      h5 {
+        font-size: 0.8rem;
+        text-align: center;
+      }
+      .carousel {
+        height: 20%;
+        .carousel-inner {
+          height: 20%;
+        }
+        img {
+          height: 20%;
+        }
       }
     }
   }

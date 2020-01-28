@@ -27,10 +27,11 @@ class TrailerPage extends React.Component {
           </Fab>
           <h2>{title} - трейлер</h2>
           <iframe
+            title={this.props.match.params.trailerLink}
             src={`https://www.youtube.com/embed/${this.props.match.params.trailerLink}`}
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            allowFullScreen
           ></iframe>
         </div>
       </div>

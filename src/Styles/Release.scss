@@ -10,27 +10,49 @@
   z-index: 1000;
   .button {
     background-color: #8a8a8a;
-    transition: all .2 ease;
+    transition: all 0.2 ease;
     outline: none;
-    border:2px solid $background;
+    border: 2px solid $background;
   }
   .button:hover {
     background-color: $theme-color;
-    border:4px solid $background-header;
-
+    border: 4px solid $background-header;
   }
-  .back{
+  .back {
     z-index: 1004;
     position: fixed;
     left: 20px;
     top: 50%;
   }
-  .forward{
+  .forward {
     z-index: 1004;
     position: fixed;
     right: 20px;
     top: 50%;
   }
+}
 
-  
+@media (max-width: 767px) and (min-width: 425px) {
+.content{
+  height: auto;
+  width: 100vw;
+  flex-direction: column;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  .back, .forward{
+    display: none;
+  }
+}
+}
+@media (max-width: 424px) and (min-width: 320px) {
+  .content{
+    height: auto;
+    width: 100vw;
+    flex-direction: column;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    .back, .forward{
+      display: none;
+    }
+  }
 }

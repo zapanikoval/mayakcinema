@@ -1,6 +1,4 @@
 import React from "react";
-import Fab from "@material-ui/core/Fab";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
 import "../Styles/CinemaInfo.scss";
 
@@ -31,15 +29,6 @@ class CinemaInfo extends React.Component {
             className="carousel slide"
             data-ride="carousel"
           >
-            <ol className="carousel-indicators">
-              <li
-                data-target="#carouselExampleCaptions"
-                data-slide-to="0"
-                className="active"
-              ></li>
-              <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-              <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-            </ol>
             <div className="carousel-inner">
               <div className="carousel-item active">
                 <img

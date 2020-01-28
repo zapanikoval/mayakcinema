@@ -18,41 +18,40 @@
     width: 300px;
     z-index: 1002;
     position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0 40px 0;
   }
   .blur:hover {
     background-color: hsla(0, 0%, 0%, 0.548);
+    flex-direction: column;
     // filter: blur(3px);
   }
 
   h3.title {
     z-index: 1003;
-    position: absolute;
-    bottom: 50px;
     margin: 0 30px 0 30px;
     max-width: 280px;
     font-weight: 600;
     text-shadow: 2px 2px 10px black;
     text-align: center;
+    //transition: all .8s ease;
   }
   h2.title {
     z-index: 1003;
-    position: absolute;
     font-weight: 900;
-    position: absolute;
-    top: 40%;
     text-align: center;
     color: $theme-hover;
     text-shadow: 1px 0px 1px black, 0px 1px 1px black, 2px 1px 1px black,
-      1px 2px 1px black, 3px 2px 1px black, 2px 3px 1px black,
-      4px 3px 1px black, 3px 4px 1px black, 5px 4px 1px black,
-      4px 5px 1px black, 6px 5px 1px black, 5px 6px 1px black,
-      7px 6px 1px black;
+      1px 2px 1px black, 3px 2px 1px black, 2px 3px 1px black, 4px 3px 1px black,
+      3px 4px 1px black, 5px 4px 1px black, 4px 5px 1px black, 6px 5px 1px black,
+      5px 6px 1px black, 7px 6px 1px black;
   }
 
   .controls {
     z-index: 1003;
-    position: absolute;
-    top: 30px;
     margin: 0 30px 0 30px;
     min-width: 240px;
     max-width: 280px;
@@ -66,6 +65,58 @@
     }
     .control-button:hover {
       background-color: $theme-color;
+    }
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .film-card {
+    width: 200px;
+    .blur {
+      width: 200px;
+
+      .controls{
+        min-width: 170px;
+        margin: 0 15px 0 15px;
+
+        .control-button{
+          width: 36px;
+          height: 36px;
+        }
+      }
+      h3.title{
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+@media (max-width: 767px) and (min-width: 425px) {
+.film-card{
+  margin: 4px 0 4px 0;
+  height: 400px;
+  width: 100%;
+
+  .controls{
+    width:100;
+  }
+  .blur{
+    height: 400px;
+    width: 100%;
+  }
+}
+}
+@media (max-width: 424px) and (min-width: 320px) {
+  .film-card{
+    margin: 4px 0 4px 0;
+    height: 400px;
+    width: 100%;
+
+    .controls{
+      width:100%;
+    }
+    .blur{
+      height: 400px;
+      width: 100%;
     }
   }
 }

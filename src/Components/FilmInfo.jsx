@@ -27,7 +27,7 @@ class FilmInfo extends React.Component {
             <KeyboardBackspaceIcon fontSize="small" />
           </Fab>
 
-          <img className="film-poster" src={film.fullPoster} />
+          <img className="film-poster" src={film.fullPoster} alt={film.name} />
           <h1>{film.name}</h1>
           <div className="film-info">
             <div className="info">
@@ -79,11 +79,12 @@ class FilmInfo extends React.Component {
           </div>
           <h4>Трейлер: </h4>
           <iframe
+            title={film.link}
             className="youtube-player"
             src={`https://www.youtube.com/embed/${film.link}`}
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            allowFullScreen
           ></iframe>
         </div>
       </div>
