@@ -1,0 +1,137 @@
+@import "./Theme.scss";
+
+.settings-card {
+  margin: 0 4px 0 4px;
+  background-image: url("https://multiplex.ua//images/0d/db/0ddb80b77212f6277fefec9b6b76cc4e.jpeg");
+  background-position: center top;
+  background-repeat: no-repeat no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 300px !important;
+  width: 300px;
+  box-shadow: 0 -100px 50px rgba(0, 0, 0, 0.856) inset,
+    0px 0px 15px 10px rgba(0, 0, 0, 0.61);
+
+  position: relative;
+  z-index: 1001;
+  margin: 15px;
+
+  .blur {
+    height: 100%;
+    width: 300px;
+    z-index: 1002;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .blur:hover {
+    background-color: hsla(0, 0%, 0%, 0.548);
+    padding: 30px 0 0 0;
+
+    // filter: blur(3px);
+  }
+
+  h3.title {
+    z-index: 1003;
+    margin: 0 30px 40px 30px;
+    max-width: 280px;
+    font-weight: 600;
+    text-shadow: 2px 2px 10px black;
+    text-align: center;
+    //transition: all .8s ease;
+  }
+  .controls {
+    z-index: 1003;
+    margin: 0 30px 0 30px;
+    min-width: 240px;
+    max-width: 280px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .control-button {
+      background-color: #8a8a8a;
+      transition: all 0.2 ease;
+      outline: none;
+    }
+    .update:hover {
+      background-color: hsl(167, 98%, 39%);
+    }
+    .delete:hover {
+      background-color: hsl(0, 69%, 50%);
+    }
+    .yes {
+      margin-right: 10px;
+      &:hover {
+        background-color: hsl(167, 98%, 39%);
+      }
+    }
+    .no:hover {
+      background-color: hsl(0, 69%, 50%);
+    }
+
+    .deleting-block{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .deleting-text{
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+// @media (max-width: 1024px) and (min-width: 768px) {
+//   .film-card {
+//     width: 200px;
+//     .blur {
+//       width: 200px;
+
+//       .controls{
+//         min-width: 170px;
+//         margin: 0 15px 0 15px;
+
+//         .control-button{
+//           width: 36px;
+//           height: 36px;
+//         }
+//       }
+//       h3.title{
+//         font-size: 1.25rem;
+//       }
+//     }
+//   }
+// }
+// @media (max-width: 767px) and (min-width: 425px) {
+// .film-card{
+//   margin: 4px 0 4px 0;
+//   height: 400px;
+//   width: 100%;
+
+//   .controls{
+//     width:100;
+//   }
+//   .blur{
+//     height: 400px;
+//     width: 100%;
+//   }
+// }
+// }
+// @media (max-width: 424px) and (min-width: 320px) {
+//   .film-card{
+//     margin: 4px 0 4px 0;
+//     height: 400px;
+//     width: 100%;
+
+//     .controls{
+//       width:100%;
+//     }
+//     .blur{
+//       height: 400px;
+//       width: 100%;
+//     }
+//   }
+// }

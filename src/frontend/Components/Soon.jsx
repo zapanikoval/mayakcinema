@@ -4,8 +4,7 @@ import FilmCard from "./FilmCard";
 import Fab from "@material-ui/core/Fab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-
-import films from "./films";
+import { connect } from "react-redux";
 
 class Soon extends React.Component {
   constructor(props) {
@@ -16,7 +15,6 @@ class Soon extends React.Component {
     };
     this.rightScroll = this.rightScroll.bind(this);
     this.leftScroll = this.leftScroll.bind(this);
-    //  this.handleScroll = this.handleScroll.bind(this);
   }
 
   rightScroll() {
@@ -66,39 +64,51 @@ class Soon extends React.Component {
   }
 
   render() {
-    return (
-      <div className="content" ref="content">
-        {this.state.leftScrollVisible && (
-          <div className="back">
-            <Fab className="button" onClick={this.leftScroll}>
-              <ArrowBackIcon fontSize="large" />
-            </Fab>
-          </div>
-        )}
-        {films.map(
-          film =>
-            film.type === "soon" && (
-              <FilmCard
-                trailerLink={film.link}
-                smallPoster={film.smallPoster}
-                releaseDate={film.releaseDate}
-                type="soon"
-                name={film.name}
-                id={film.id}
-                key={film.id}
-              />
-            )
-        )}
-        {this.state.rightScrollVisible && (
-          <div className="forward">
-            <Fab className="button" onClick={this.rightScroll}>
-              <ArrowForwardIcon fontSize="large" />
-            </Fab>
-          </div>
-        )}
-      </div>
-    );
+    const { films } = this.props;
+    console.log(films);
+
+    if (films !== undefined)
+      return (
+        <div className="content" ref="content">
+          {this.state.leftScrollVisible && (
+            <div className="back">
+              <Fab className="button" onClick={this.leftScroll}>
+                <ArrowBackIcon fontSize="large" />
+              </Fab>
+            </div>
+          )}
+          {films.map(
+            film =>
+              film.type === "soon" && (
+                <FilmCard
+                  trailerLink={film.link}
+                  smallPoster={film.smallPoster}
+                  releaseDate={film.releaseDate}
+                  type="soon"
+                  name={film.name}
+                  id={film._id}
+                  key={film._id}
+                  dispatch={this.props.dispatch}
+                />
+              )
+          )}
+          {this.state.rightScrollVisible && (
+            <div className="forward">
+              <Fab className="button" onClick={this.rightScroll}>
+                <ArrowForwardIcon fontSize="large" />
+              </Fab>
+            </div>
+          )}
+        </div>
+      );
+      else return <h1>Loading...</h1>
   }
 }
 
-export default Soon;
+function mapStateToProps(state) {
+  return {
+    films: state.soonFilmState
+  };
+}
+
+export default connect(mapStateToProps)(Soon);

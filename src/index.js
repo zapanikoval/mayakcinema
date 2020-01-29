@@ -1,18 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import App from "./frontend/App";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+
+import { fetchFilms as fetchReleaseFilm } from "./frontend/Redux/Actions/releaseFilms/actions";
+import { fetchFilms as fetchSoonFilm } from "./frontend/Redux/Actions/soonFilms/actions";
+
+import store from "./frontend/Redux/Store/store";
+store.dispatch(fetchReleaseFilm());
+store.dispatch(fetchSoonFilm());
 
 ReactDOM.render(
   <Router>
-    <Route path="/">
+    <Provider store={store}>
       <App />
-    </Route>
+    </Provider>
   </Router>,
   document.getElementById("root")
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA

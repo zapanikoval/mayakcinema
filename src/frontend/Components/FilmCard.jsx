@@ -5,6 +5,9 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { NavLink } from "react-router-dom";
 
+import { getFilm as getReleaseFilm } from "../Redux/Actions/releaseFilms/actions";
+import { getFilm as getSoonFilm } from "../Redux/Actions/soonFilms/actions";
+
 class FilmCard extends React.Component {
   constructor(props) {
     super(props);
@@ -37,6 +40,11 @@ class FilmCard extends React.Component {
 
   handleClick() {
     window.scrollTo(0, 0);
+    if (this.props.type === "release") {
+      this.props.dispatch(getReleaseFilm(this.props.id));
+    } else if (this.props.type === "soon") {
+      this.props.dispatch(getSoonFilm(this.props.id));
+    }
   }
 
   render() {
@@ -55,7 +63,14 @@ class FilmCard extends React.Component {
           {this.state.focus && (
             <div className="controls">
               <Fab className="control-button" onClick={this.handleClick}>
-                <NavLink to={`/film/${this.props.id}`} className="a-link">
+                <NavLink
+                  to={
+                    this.props.type === "release"
+                      ? `/release-film/${this.props.id}`
+                      : `/soon-film/${this.props.id}`
+                  }
+                  className="a-link"
+                >
                   <InfoOutlinedIcon fontSize={buttonSize} />
                 </NavLink>
               </Fab>
@@ -73,8 +88,9 @@ class FilmCard extends React.Component {
           {this.props.type === "soon" && this.state.focus && (
             <h2 className="title">{this.props.releaseDate}</h2>
           )}
-          <h3 className="title"> {this.props.name}</h3>
+          {this.state.focus && <h3 className="title"> {this.props.name}</h3>}
         </div>
+        {!this.state.focus && <h3 className="title"> {this.props.name}</h3>}
       </div>
     );
   }

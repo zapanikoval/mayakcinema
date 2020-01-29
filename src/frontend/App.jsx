@@ -7,6 +7,7 @@ import Soon from "./Components/Soon";
 import TrailerPage from "./Components/TrailerPage";
 import CinemaInfo from "./Components/CinemaInfo";
 import { Route, Switch, Redirect } from "react-router-dom";
+import AdminPage from "./Components/AdminPage";
 
 function App() {
   return (
@@ -22,13 +23,20 @@ function App() {
         <Route path="/cinema">
           <CinemaInfo />
         </Route>
+        <Route path="/admin">
+          <AdminPage />
+        </Route>
         <Route
           path="/trailer/:trailerLink"
           render={routeProps => <TrailerPage {...routeProps} />}
         />
         <Route
-          path="/film/:filmId"
-          render={routeProps => <FilmInfo {...routeProps} />}
+          path="/release-film/:filmId"
+          render={routeProps => <FilmInfo {...routeProps} type="release" />}
+        />
+        <Route
+          path="/soon-film/:filmId"
+          render={routeProps => <FilmInfo {...routeProps} type="soon" />}
         />
         <Route path="*">
           <Redirect to="/release" />

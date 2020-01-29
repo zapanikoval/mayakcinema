@@ -47,6 +47,17 @@
     justify-content: flex-start;
     padding-top: 30px;
     padding-bottom: 30px;
+    transition: height 0.5s ease;
+
+    .loading {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      span {
+        margin-right: 5px;
+      }
+    }
 
     .film-poster {
       width: 80%;
@@ -102,6 +113,7 @@
       box-shadow: 0px 8px 13px 14px rgba(0, 0, 0, 0.75);
     }
   }
+
 }
 @media (max-width: 1024px) and (min-width: 768px) {
   .body-info {
@@ -130,14 +142,14 @@
           padding: 10px;
         }
       }
-      .film-poster{
+      .film-poster {
         width: 90%;
         margin-top: 33px;
       }
-      h1{
+      h1 {
         text-align: center;
       }
-      .youtube-player{
+      .youtube-player {
         width: 95%;
         height: 300px;
       }
@@ -160,14 +172,14 @@
           padding: 10px;
         }
       }
-      .film-poster{
-width: 90%;
-margin-top: 33px;
+      .film-poster {
+        width: 90%;
+        margin-top: 33px;
       }
-      h1{
+      h1 {
         text-align: center;
       }
-      .youtube-player{
+      .youtube-player {
         width: 95%;
         height: 300px;
       }
