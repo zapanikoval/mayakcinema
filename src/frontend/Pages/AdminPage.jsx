@@ -1,9 +1,13 @@
 import React from "react";
 import "../Styles/AdminPage.scss";
-import SettingsCard from "./SettingsCard";
+import SettingsCard from "../Components/SettingsCard";
 import { connect } from "react-redux";
 import { deleteFilm as deleteReleaseFilm } from "../Redux/Actions/releaseFilms/actions";
 import { deleteFilm as deleteSoonFilm } from "../Redux/Actions/soonFilms/actions";
+
+import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
+import { NavLink } from "react-router-dom";
 
 class AdminPage extends React.Component {
   constructor(props) {
@@ -30,6 +34,12 @@ class AdminPage extends React.Component {
           <div className="container-info">
             <div className="film-column">
               <h1>Сейчас в прокате</h1>
+              <Button variant="contained" className="add-btn">
+                <NavLink className="a-link" to="/add/release">
+                  Добавить
+                  <AddIcon />
+                </NavLink>
+              </Button>
               {releaseFilms.map(film => (
                 <SettingsCard
                   img={film.smallPoster}
@@ -43,6 +53,12 @@ class AdminPage extends React.Component {
             </div>
             <div className="film-column">
               <h1>Скоро в прокате</h1>
+              <Button variant="contained" className="add-btn">
+                <NavLink className="a-link" to="/add/soon">
+                  Добавить
+                  <AddIcon />
+                </NavLink>
+              </Button>
               {soonFilms.map(film => (
                 <SettingsCard
                   img={film.smallPoster}
@@ -62,7 +78,6 @@ class AdminPage extends React.Component {
 }
 
 function mapStateToProps(state) {
-
   return {
     releaseFilms: state.releaseFilmState,
     soonFilms: state.soonFilmState

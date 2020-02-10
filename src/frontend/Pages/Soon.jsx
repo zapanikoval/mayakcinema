@@ -1,6 +1,6 @@
 import React from "react";
 import "../Styles/Release.scss";
-import FilmCard from "./FilmCard";
+import FilmCard from "../Components/FilmCard";
 import Fab from "@material-ui/core/Fab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
@@ -15,6 +15,7 @@ class Soon extends React.Component {
     };
     this.rightScroll = this.rightScroll.bind(this);
     this.leftScroll = this.leftScroll.bind(this);
+    this.handleWheel = this.handleWheel.bind(this);
   }
 
   rightScroll() {
@@ -63,13 +64,23 @@ class Soon extends React.Component {
     }
   }
 
+  handleWheel(e) {
+    e.persist();
+
+    if (e.deltaY > 0) {
+      this.rightScroll();
+    } else if (e.deltaY < 0) {
+      this.leftScroll();
+    }
+  }
+
   render() {
     const { films } = this.props;
     console.log(films);
 
     if (films !== undefined)
       return (
-        <div className="content" ref="content">
+        <div className="content" ref="content" onWheel={this.handleWheel}>
           {this.state.leftScrollVisible && (
             <div className="back">
               <Fab className="button" onClick={this.leftScroll}>
@@ -101,7 +112,7 @@ class Soon extends React.Component {
           )}
         </div>
       );
-      else return <h1>Loading...</h1>
+    else return <h1>Loading...</h1>;
   }
 }
 

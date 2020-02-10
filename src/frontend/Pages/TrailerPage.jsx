@@ -2,7 +2,6 @@ import React from "react";
 import "../Styles/TrailerPage.scss";
 import Fab from "@material-ui/core/Fab";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import films from "./films";
 
 class TrailerPage extends React.Component {
   constructor(props) {
@@ -14,9 +13,6 @@ class TrailerPage extends React.Component {
     this.props.history.goBack();
   }
   render() {
-    const title = films.find(
-      film => film.link === this.props.match.params.trailerLink
-    ).name;
     return (
       <div className="trailer-page">
         <div className="background-image"></div>
@@ -25,7 +21,7 @@ class TrailerPage extends React.Component {
           <Fab size="small" className="btn-back" onClick={this.handleClick}>
             <KeyboardBackspaceIcon fontSize="small" />
           </Fab>
-          <h2>{title} - трейлер</h2>
+          <h2>Трейлер</h2>
           <iframe
             title={this.props.match.params.trailerLink}
             src={`https://www.youtube.com/embed/${this.props.match.params.trailerLink}`}

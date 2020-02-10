@@ -6,11 +6,12 @@ export default function releaseFilmReducer(state = [], action) {
       return action.films;
     }
     case releaseActionTypes.addFilm: {
-      return [...state, action.film];
+      const newFilms = state.concat([action.film]);
+      return newFilms;
     }
     case releaseActionTypes.updateFilm: {
       return state.map(film => {
-        if (film.id === action.film.id) {
+        if (film._id === action.film._id) {
           return action.film;
         } else return film;
       });

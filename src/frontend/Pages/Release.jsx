@@ -1,6 +1,6 @@
 import React from "react";
 import "../Styles/Release.scss";
-import FilmCard from "./FilmCard";
+import FilmCard from "../Components/FilmCard";
 import Fab from "@material-ui/core/Fab";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
@@ -16,21 +16,16 @@ class Release extends React.Component {
     };
     this.rightScroll = this.rightScroll.bind(this);
     this.leftScroll = this.leftScroll.bind(this);
+    this.handleWheel = this.handleWheel.bind(this);
   }
 
   rightScroll() {
-    const width = 306;
-    let currentWidth = 0;
-    const interval = setInterval(() => {
-      if (currentWidth <= width) {
-        this.refs.content.scrollBy(4, 0);
-        currentWidth += 4;
-      } else clearInterval(interval);
-    }, 0.00001);
-    if (
-      this.refs.content.scrollLeft + 308 ===
-      this.refs.content.scrollWidth - window.innerWidth
-    ) {
+    this.refs.content.scrollBy({
+      left: 300,
+      behavior: "smooth"
+    });
+    const scrollWidth = this.refs.content.scrollWidth - window.innerWidth;
+    if (this.refs.content.scrollLeft + 300 >= scrollWidth) {
       this.setState({
         rightScrollVisible: false,
         leftScrollVisible: true
@@ -43,15 +38,11 @@ class Release extends React.Component {
     }
   }
   leftScroll() {
-    const width = -306;
-    let currentWidth = 0;
-    const interval = setInterval(() => {
-      if (currentWidth >= width) {
-        this.refs.content.scrollBy(-4, 0);
-        currentWidth -= 4;
-      } else clearInterval(interval);
-    }, 0.00001);
-    if (this.refs.content.scrollLeft - 308 === 0) {
+    this.refs.content.scrollBy({
+      left: -300,
+      behavior: "smooth"
+    });
+    if (this.refs.content.scrollLeft - 300 <= 0) {
       this.setState({
         rightScrollVisible: true,
         leftScrollVisible: false
@@ -64,12 +55,22 @@ class Release extends React.Component {
     }
   }
 
+  handleWheel(e) {
+    e.persist();
+
+    if (e.deltaY > 0) {
+      this.rightScroll();
+    } else if (e.deltaY < 0) {
+      this.leftScroll();
+    }
+  }
+
   render() {
     const { films } = this.props;
 
     if (films !== undefined)
       return (
-        <div className="content" ref="content">
+        <div className="content" ref="content" onWheel={this.handleWheel}>
           {this.state.leftScrollVisible && (
             <div className="back">
               <Fab className="button" onClick={this.leftScroll}>

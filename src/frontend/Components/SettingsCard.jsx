@@ -51,31 +51,31 @@ export default class SettingsCard extends React.Component {
     }, 1500);
   }
 
+  handleClick() {
+    window.scrollTo({
+      top: 0,
+    });
+  }
+
   render() {
     const { buttonSize } = this.state;
     return (
       <div
         className="settings-card"
         style={{ backgroundImage: `url(${this.props.img})` }}
+        onMouseOver={this.handleEnter}
+        onMouseLeave={this.handleLeave}
       >
-        <div
-          className="blur"
-          onMouseEnter={this.handleEnter}
-          onMouseLeave={this.handleLeave}
-        >
+        <div className="blur">
           {this.state.focus && (
             <div className="controls">
               <Fab className="control-button update" onClick={this.handleClick}>
-                {/* <NavLink
-                  to={
-                    this.props.type === "release"
-                      ? `/release-film/${this.props.id}`
-                      : `/soon-film/${this.props.id}`
-                  }
+                <NavLink
+                  to={`/update/${this.props.type}/${this.props.id}`}
                   className="a-link"
-                > */}
-                <RefreshIcon fontSize={buttonSize} />
-                {/* </NavLink> */}
+                >
+                  <RefreshIcon fontSize={buttonSize} />
+                </NavLink>
               </Fab>
               {!this.state.isDeleting ? (
                 <Fab

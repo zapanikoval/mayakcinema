@@ -27,6 +27,65 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    .header-name {
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      text-decoration: none;
+      color: white;
+    }
+  }
+
+  .login {
+    .nav-link {
+      text-decoration: none;
+      text-align: center;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 100%;
+      transition: color 0.1s ease;
+      p {
+        font-size: 25px;
+        margin: 0 0 0 5px;
+      }
+      &:hover {
+        color: $theme-hover;
+      }
+    }
+  }
+  .logged {
+    font-size: 18px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    p {
+      margin: 0;
+      span {
+        color: $theme-hover;
+      }
+    }
+    .logout {
+      border-left: 2px solid $theme-color;
+      height: 99.5%;
+      padding:0 10px 0 10px;
+      margin-left: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease;
+      &:hover{
+        background-color: $theme-color;
+        color: $background-header;
+        font-weight: 900;
+        cursor: pointer;
+      }
+    }
   }
 
   .logo {
@@ -97,7 +156,6 @@
       font-size: 2rem;
     }
   }
-
 }
 @media (max-width: 767px) and (min-width: 425px) {
   .contorls {

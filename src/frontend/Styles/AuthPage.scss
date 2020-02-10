@@ -1,0 +1,98 @@
+@import "./Theme.scss";
+
+.body-auth {
+  background-attachment: fixed;
+  width: 100%;
+  height: calc(100vh - 80px);
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  .background-image {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100vw;
+    background-image: url("../Images/pattern250.jpg");
+    background-position: center center;
+    background-repeat: repeat;
+    background-size: auto;
+    //filter: blur(2px);
+  }
+  .background-blur {
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.432);
+  }
+
+  .top-logo {
+    z-index: 3;
+    height: 50px;
+    width: 100vw;
+    background-color: $background-header;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 10px 5px rgba(0, 0, 0, 0.75);
+    .header-name {
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      text-decoration: none;
+      color: white;
+      .logo-img {
+        height: 100%;
+        width: auto;
+      }
+    }
+  }
+
+  .success-register {
+    margin-top: 5px;
+    width: auto;
+    padding: 10px 30px 10px 25px;
+    background-color: hsl(167, 98%, 39%);
+    z-index: 9999;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 3px 14px 3px rgba(0, 0, 0, 0.75);
+    position: relative;
+    p {
+      margin: 0;
+    }
+    .login-link {
+      color: white;
+    }
+    .close-btn {
+      outline: none;
+      color: white;
+      position: absolute;
+      right: 5px;
+    }
+  }
+
+  .auth-form {
+    background-color: hsl(120, 100%, 98%);
+    color: $background-header;
+    z-index: 3;
+    width: 25%;
+    margin-top: 7%;
+    height: auto;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.75);
+  }
+}

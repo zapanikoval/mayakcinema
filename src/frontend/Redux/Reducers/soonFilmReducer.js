@@ -10,7 +10,7 @@ export default function filmReducer(state = [], action) {
     }
     case soonActionTypes.updateFilm: {
       return state.map(film => {
-        if (film.id === action.film.id) {
+        if (film._id === action.film._id) {
           return action.film;
         } else return film;
       });

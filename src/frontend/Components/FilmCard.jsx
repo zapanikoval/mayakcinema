@@ -54,12 +54,10 @@ class FilmCard extends React.Component {
       <div
         className="film-card"
         style={{ backgroundImage: `url(${this.props.smallPoster})` }}
+        onMouseOver={this.handleEnter}
+        onMouseLeave={this.handleLeave}
       >
-        <div
-          className="blur"
-          onMouseEnter={this.handleEnter}
-          onMouseLeave={this.handleLeave}
-        >
+        <div className="blur">
           {this.state.focus && (
             <div className="controls">
               <Fab className="control-button" onClick={this.handleClick}>

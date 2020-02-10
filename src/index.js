@@ -1,20 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./frontend/App";
-import { BrowserRouter as Router } from "react-router-dom";
+import AuthPage from "./frontend/Pages/AuthPage";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 
-import { fetchFilms as fetchReleaseFilm } from "./frontend/Redux/Actions/releaseFilms/actions";
-import { fetchFilms as fetchSoonFilm } from "./frontend/Redux/Actions/soonFilms/actions";
-
 import store from "./frontend/Redux/Store/store";
-store.dispatch(fetchReleaseFilm());
-store.dispatch(fetchSoonFilm());
+
+window.addEventListener("unload", () => {
+  const notRemember = localStorage.getItem("refresh_token");
+  if (notRemember === "no_remember") {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+  }
+});
 
 ReactDOM.render(
   <Router>
     <Provider store={store}>
-      <App />
+      <Switch>
+        <Route
+          strict
+          path="/auth"
+          render={routeProps => <AuthPage {...routeProps} />}
+        />
+        <Route path="/">
+          <App />
+        </Route>
+      </Switch>
     </Provider>
   </Router>,
   document.getElementById("root")

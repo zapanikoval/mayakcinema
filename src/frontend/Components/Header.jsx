@@ -3,12 +3,16 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import CloseIcon from "@material-ui/icons/Close";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import "../Styles/Header.scss";
 import logoTheme from "../Images/logo-theme.png";
 
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class Header extends React.Component {
+import { logOutUser } from "../Redux/Actions/auth/actions";
+
+class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,6 +20,11 @@ export default class Header extends React.Component {
       showMenuContent: false
     };
     this.toggleMenu = this.toggleMenu.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
+  }
+
+  handleLogOut() {
+    this.props.dispatch(logOutUser());
   }
 
   toggleMenu() {
@@ -50,6 +59,8 @@ export default class Header extends React.Component {
   }
 
   render() {
+    console.log(this.props.auth);
+
     return (
       <header className="header">
         <div
@@ -63,7 +74,11 @@ export default class Header extends React.Component {
         ></div>
         <div
           className="menu"
-          style={this.state.menuActive ? { marginLeft: "0" } : { marginLeft: "-320px" }}
+          style={
+            this.state.menuActive
+              ? { marginLeft: "0" }
+              : { marginLeft: "-320px" }
+          }
         >
           {this.state.showMenuContent && (
             <div className="close-button">
@@ -99,6 +114,16 @@ export default class Header extends React.Component {
               >
                 Кинотеатр
               </NavLink>
+              {this.props.auth.role === "admin" && (
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/admin"
+                  onClick={this.toggleMenu}
+                >
+                  Редактировать
+                </NavLink>
+              )}
             </nav>
           )}
         </div>
@@ -109,12 +134,39 @@ export default class Header extends React.Component {
           >
             <MenuIcon style={{ color: "white" }} />
           </Button>
-          <h1>Кинотеатр имени Маяковского</h1>
+          <NavLink className="header-name" to="/">
+            <h1>Кинотеатр имени Маяковского</h1>
+            <div className="logo">
+              <img src={logoTheme} alt="logo" className="logo-img"></img>
+            </div>
+          </NavLink>
         </div>
-        <div className="logo">
-          <img src={logoTheme} alt="logo" className="logo-img"></img>
-        </div>
+        {!this.props.auth.userName ? (
+          <div className="login">
+            <NavLink to="/auth/login" className="nav-link">
+              <ExitToAppIcon />
+              <p>Войти</p>
+            </NavLink>
+          </div>
+        ) : (
+          <div className="logged">
+            <p>
+              Привет, <span>{this.props.auth.userName}</span>
+            </p>
+            <div className="logout" onClick={this.handleLogOut}>
+              <p>Выйти</p>
+            </div>
+          </div>
+        )}
       </header>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
+
+export default connect(mapStateToProps)(Header);
