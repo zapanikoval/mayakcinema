@@ -1,9 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
-
-### `npm start`
-
-FrontEnd часть для проекта Mayakcinema. 
+## FrontEnd часть для проекта Mayakcinema. 
+# BackEnd часть лежит в репозитории backend_for_Mayakcinema
