@@ -2,8 +2,8 @@ import axios from "axios";
 import soonActionTypes from "./actionTypes";
 import { checkAccessToken } from "../auth/actions";
 
-const baseURL = "http://192.168.0.101:5000/films/soon";
-//const baseURL = "http://localhost:5000/films/soon";
+//const baseURL = "http://192.168.1.6:5000/films/soon";
+const baseURL = "http://localhost:5000/films/soon";
 
 export function fetchFilms() {
   return async function(dispatch) {

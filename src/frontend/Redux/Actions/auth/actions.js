@@ -1,8 +1,8 @@
 import axios from "axios";
 import actionTypes from "./actionTypes";
 
-const baseURL = "http://192.168.0.101:5000/auth";
-//const baseURL = "http://localhost:5000/auth";
+//const baseURL = "http://192.168.1.6:5000/auth";
+const baseURL = "http://localhost:5000/auth";
 
 export function logInUser(user) {
   return async function(dispatch) {

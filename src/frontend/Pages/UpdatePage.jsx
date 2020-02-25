@@ -1,8 +1,8 @@
 import React from "react";
-
 import "../Styles/AddPage.scss";
 import "../Styles/UpdatePage.scss";
 import TextField from "@material-ui/core/TextField";
+import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import Button from "@material-ui/core/Button";
@@ -11,8 +11,19 @@ import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import { ru } from "date-fns/locale";
+import { format, isValid } from "date-fns";
 
-import { updateFilm as updateReleaseFilm } from "../Redux/Actions/releaseFilms/actions";
+import {
+  updateFilm as updateReleaseFilm,
+  addShow
+} from "../Redux/Actions/releaseFilms/actions";
 import { updateFilm as updateSoonFilm } from "../Redux/Actions/soonFilms/actions";
 import { connect } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
@@ -34,11 +45,72 @@ class UpdatePage extends React.Component {
 
     this.state = {
       showAlert: false,
+      show: {
+        date: new Date(),
+        time: new Date(),
+        price: ""
+      },
       film
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleToggleAlert = this.handleToggleAlert.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handlePriceChange = this.handlePriceChange.bind(this);
+    this.addShow = this.addShow.bind(this);
+  }
+
+  addShow() {
+    const newShow = {
+      filmId: this.state.film._id,
+      date: this.state.show.date,
+      time: this.state.show.time,
+      price: this.state.show.price
+    };
+    this.setState(prev => {
+      return {
+        film: {
+          ...prev.film,
+          shows: [...prev.film.shows, this.state.show]
+        }
+      };
+    });
+    this.props.dispatch(addShow(newShow));
+  }
+
+  handlePriceChange(e) {
+    const { value } = e.target;
+    this.setState(prev => {
+      return {
+        show: {
+          ...prev.show,
+          price: value
+        }
+      };
+    });
+  }
+
+  handleDateChange(date) {
+    this.setState(prevState => {
+      return {
+        show: {
+          ...prevState.show,
+          date: format(date, "dd.MM.yyyy")
+        }
+      };
+    });
+  }
+
+  handleTimeChange(time) {
+    this.setState(prevState => {
+      return {
+        show: {
+          ...prevState.show,
+          time: format(time, "HH:mm")
+        }
+      };
+    });
   }
 
   handleToggleAlert() {
@@ -52,11 +124,10 @@ class UpdatePage extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const type = this.props.match.params.type;
+    const film = this.state.film;
 
-    if (type === "release")
-      this.props.dispatch(updateReleaseFilm(this.state.film));
-    else if (type === "soon")
-      this.props.dispatch(updateSoonFilm(this.state.film));
+    if (type === "release") this.props.dispatch(updateReleaseFilm(film));
+    else if (type === "soon") this.props.dispatch(updateSoonFilm(film));
     this.handleToggleAlert();
     window.scrollTo({
       top: 0,
@@ -93,6 +164,7 @@ class UpdatePage extends React.Component {
 
   render() {
     const type = this.props.match.params.type;
+    console.log(this.state.film);
 
     if (this.state.film)
       return (
@@ -114,32 +186,34 @@ class UpdatePage extends React.Component {
             name="form"
             onSubmit={this.handleSubmit}
           >
-            <div
-              className="alert alert-info mb-3"
-              style={{
-                paddingRight: 5,
-                display: this.state.showAlert ? "block" : "none"
-              }}
-            >
-              Фильм обновлен.{" "}
-              <NavLink
-                to={
-                  this.props.match.params.type === "release"
-                    ? `/release-film/${this.state.film._id}`
-                    : `/soon-film/${this.state.film._id}`
-                }
-                className="link"
+            {this.state.showAlert && (
+              <div
+                className="alert alert-info mb-3"
+                style={{
+                  paddingRight: 5
+                }}
               >
-                Посмотреть
-              </NavLink>
-              <IconButton
-                className="close-btn"
-                style={{ marginLeft: 10, outline: "none" }}
-                onClick={this.handleToggleAlert}
-              >
-                <CloseIcon />
-              </IconButton>
-            </div>
+                Фильм обновлен.{" "}
+                <NavLink
+                  to={
+                    this.props.match.params.type === "release"
+                      ? `/release-film/${this.state.film._id}`
+                      : `/soon-film/${this.state.film._id}`
+                  }
+                  className="link"
+                >
+                  Посмотреть
+                </NavLink>
+                <IconButton
+                  className="close-btn"
+                  style={{ marginLeft: 10, outline: "none" }}
+                  onClick={this.handleToggleAlert}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </div>
+            )}
+
             <div className="row-block">
               <h1>Обновить фильм</h1>
               <TextField
@@ -331,6 +405,70 @@ class UpdatePage extends React.Component {
                 onChange={this.handleChange}
               />
             </div>
+            {this.state.film.type === "inRelease" && (
+              <div className="show">
+                <h4 className="mt-4 mb-2">Добавить сеанс</h4>
+                <div className="shows">
+                  {this.state.film.shows[0] &&
+                    this.state.film.shows.map((show, indexShow) => (
+                      <div className="info-show" key={indexShow}>
+                        <span className="number">{indexShow + 1}</span>
+                        <span>
+                          {typeof show.date === "string"
+                            ? show.date
+                            : isValid(show.date) &&
+                              format(show.date, "dd.MM.yyyy")}
+                        </span>
+                        <span>
+                          {typeof show.time === "string"
+                            ? show.time
+                            : isValid(show.time) && format(show.time, "HH:mm")}
+                        </span>
+                        <span>{show.price}грн</span>
+                      </div>
+                    ))}
+                </div>
+                <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ru}>
+                  <div className="inputs">
+                    <KeyboardDatePicker
+                      disableToolbar
+                      variant="inline"
+                      inputVariant="filled"
+                      format="dd.MM.yyyy"
+                      label="Дата сеанса"
+                      // value={this.state.show.date}
+                      onChange={this.handleDateChange}
+                      required="false"
+                    />
+                    <KeyboardTimePicker
+                      inputVariant="filled"
+                      clearable="true"
+                      ampm={false}
+                      variant="inline"
+                      label="Время сеанса"
+                      minutesStep={5}
+                      placeholder="08:00"
+                      mask="__:__"
+                      // value={this.state.show.time}
+                      onChange={this.handleTimeChange}
+                      required="false"
+                    />
+                    <TextField
+                      label="Цена"
+                      placeholder="90"
+                      name="price"
+                      value={this.state.show.price}
+                      variant="filled"
+                      onChange={this.handlePriceChange}
+                    />
+                    <Fab className="add-show" onClick={this.addShow}>
+                      <AddIcon />
+                    </Fab>
+                  </div>
+                </MuiPickersUtilsProvider>
+              </div>
+            )}
+
             <Button
               variant="contained"
               size="large"

@@ -2,8 +2,10 @@ import axios from "axios";
 import releaseActionTypes from "./actionTypes";
 import { checkAccessToken } from "../auth/actions";
 
-const baseURL = "http://192.168.0.101:5000/films/release";
-//const baseURL = "http://localhost:5000/films/release";
+//const baseURL = "http://192.168.1.6:5000/films/release";
+const baseURL = "http://localhost:5000/films/release";
+//const showURL = "http://192.168.1.6:5000/show";
+const showURL = "http://localhost:5000/show";
 
 export function fetchFilms() {
   return async function(dispatch) {
@@ -146,8 +148,6 @@ export function rateFilm(params) {
     const { type, filmId } = params;
 
     try {
-      console.log("log", params);
-
       await dispatch(checkAccessToken());
       await axios
         .put(
@@ -168,6 +168,26 @@ export function rateFilm(params) {
         });
     } catch (e) {
       console.error(e);
+    }
+  };
+}
+
+export function addShow(req) {
+  return async function(dispatch, getState) {
+    try {
+      await dispatch(checkAccessToken());
+      await axios
+        .post(`${showURL}/add`, req, {
+          headers: {
+            authorization: getState().auth.token
+          }
+        })
+        .then(res => {
+          const updatedFilm = res.data;
+          dispatch({ type: releaseActionTypes.updateFilm, film: updatedFilm });
+        });
+    } catch (e) {
+      console.log(e);
     }
   };
 }

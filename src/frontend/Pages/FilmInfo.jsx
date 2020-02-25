@@ -23,6 +23,7 @@ import {
   editComment as editSoonComment,
   rateFilm as rateSoonFilm
 } from "../Redux/Actions/soonFilms/actions";
+import ShowPicker from "../Components/ShowPicker";
 
 const dateOptions = {
   year: "numeric",
@@ -171,6 +172,7 @@ class FilmInfo extends React.Component {
 
   render() {
     const { film } = this.props;
+
     let likes, dislikes;
     let isLiked, isDisliked;
     if (film.rates) {
@@ -205,6 +207,7 @@ class FilmInfo extends React.Component {
               alt={film.name}
             />
             <h1>{film.name}</h1>
+            <ShowPicker shows={film.shows} />
             <div className="film-info">
               <div className="info">
                 {film.yearLimit && (

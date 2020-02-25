@@ -11,9 +11,9 @@ import PrivateRoute from "./Components/PrivateRoute";
 import AdminPage from "./Pages/AdminPage";
 import AddPage from "./Pages/AddPage";
 import UpdatePage from "./Pages/UpdatePage";
+import BuyTickets from "./Pages/BuyTickets";
 
 class App extends React.Component {
-
   render() {
     return (
       <div className="App">
@@ -54,6 +54,10 @@ class App extends React.Component {
           <Route
             path="/soon-film/:filmId"
             render={routeProps => <FilmInfo {...routeProps} type="soon" />}
+          />
+          <Route
+            path="/tickets/:filmId"
+            render={routeProps => <BuyTickets {...routeProps} />}
           />
           <Route path="*">
             <Redirect to="/release" />

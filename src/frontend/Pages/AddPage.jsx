@@ -2,11 +2,23 @@ import React from "react";
 
 import "../Styles/AddPage.scss";
 import TextField from "@material-ui/core/TextField";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import Button from "@material-ui/core/Button";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
+
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import { ru } from "date-fns/locale";
+import { format, isValid } from "date-fns";
 
 import { addFilm as addReleaseFilm } from "../Redux/Actions/releaseFilms/actions";
 import { addFilm as addSoonFilm } from "../Redux/Actions/soonFilms/actions";
@@ -34,9 +46,15 @@ class AddPage extends React.Component {
           time: "",
           studio: "",
           mainRoles: "",
-          description: ""
+          description: "",
+          shows: []
         },
-        showAlert: false
+        showAlert: false,
+        show: {
+          date: new Date(),
+          time: new Date(),
+          price: ""
+        }
       };
     else if (type === "soon")
       this.state = {
@@ -52,13 +70,73 @@ class AddPage extends React.Component {
           style: "",
           studio: "",
           mainRoles: "",
-          description: ""
+          description: "",
+          shows: []
         },
-        showAlert: false
+        showAlert: false,
+        show: {
+          date: new Date(),
+          time: new Date(),
+          price: ""
+        }
       };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleToggleAlert = this.handleToggleAlert.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handlePriceChange = this.handlePriceChange.bind(this);
+    this.addShow = this.addShow.bind(this);
+  }
+
+  addShow() {
+    const newShow = {
+      date: format(this.state.show.date, "dd.MM.yyyy"),
+      time: format(this.state.show.time, "HH:mm"),
+      price: this.state.show.price
+    };
+    this.setState(prev => {
+      return {
+        film: {
+          ...prev.film,
+          shows: [...prev.film.shows, newShow]
+        }
+      };
+    });
+  }
+
+  handlePriceChange(e) {
+    const { value } = e.target;
+    this.setState(prev => {
+      return {
+        show: {
+          ...prev.show,
+          price: value
+        }
+      };
+    });
+  }
+
+  handleDateChange(date) {
+    this.setState(prevState => {
+      return {
+        show: {
+          ...prevState.show,
+          date
+        }
+      };
+    });
+  }
+
+  handleTimeChange(time) {
+    this.setState(prevState => {
+      return {
+        show: {
+          ...prevState.show,
+          time
+        }
+      };
+    });
   }
 
   handleToggleAlert() {
@@ -88,7 +166,8 @@ class AddPage extends React.Component {
           time: "",
           studio: "",
           mainRoles: "",
-          description: ""
+          description: "",
+          shows: []
         }
       });
     else if (type === "soon")
@@ -105,7 +184,8 @@ class AddPage extends React.Component {
           style: "",
           studio: "",
           mainRoles: "",
-          description: ""
+          description: "",
+          shows: []
         }
       });
   }
@@ -360,6 +440,67 @@ class AddPage extends React.Component {
               onChange={this.handleChange}
             />
           </div>
+          {this.state.film.type === "inRelease" && (
+            <div className="show">
+              <h4 className="mt-4 mb-2">Добавить сеанс</h4>
+              <div className="shows">
+                {this.state.film.shows[0] &&
+                  this.state.film.shows.map((show, indexShow) => (
+                    <div className="info-show" key={indexShow}>
+                      <span className="number">{indexShow + 1}</span>
+                      <span>
+                        {typeof show.date === "string"
+                          ? show.date
+                          : isValid(show.date) &&
+                            format(show.date, "dd.MM.yyyy")}
+                      </span>
+                      <span>
+                        {typeof show.time === "string"
+                          ? show.time
+                          : isValid(show.time) && format(show.time, "HH:mm")}
+                      </span>
+                      <span>{show.price}грн</span>
+                    </div>
+                  ))}
+              </div>
+              <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ru}>
+                <div className="inputs">
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    inputVariant="filled"
+                    format="dd.MM.yyyy"
+                    label="Дата сеанса"
+                    value={this.state.show.date}
+                    onChange={this.handleDateChange}
+                  />
+                  <KeyboardTimePicker
+                    inputVariant="filled"
+                    clearable="true"
+                    ampm={false}
+                    variant="inline"
+                    label="Время сеанса"
+                    minutesStep={5}
+                    placeholder="08:00"
+                    mask="__:__"
+                    value={this.state.show.time}
+                    onChange={this.handleTimeChange}
+                  />
+                  <TextField
+                    label="Цена"
+                    placeholder="90"
+                    name="price"
+                    value={this.state.show.price}
+                    variant="filled"
+                    onChange={this.handlePriceChange}
+                  />
+                  <Fab className="add-show" onClick={this.addShow}>
+                    <AddIcon />
+                  </Fab>
+                </div>
+              </MuiPickersUtilsProvider>
+            </div>
+          )}
           <Button
             variant="contained"
             size="large"
